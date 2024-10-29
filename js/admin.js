@@ -229,7 +229,7 @@ $(document).ready(function () {
     function viewAccounts() {
       $.ajax({
         type: "GET",
-        url: "../accounts/view-accounts.php",
+        url: "../account/view-accounts.php",
         dataType: "html",
         success: function (response) {
           $(".content-page").html(response);
@@ -261,7 +261,7 @@ $(document).ready(function () {
     function addAccount() {
       $.ajax({
         type: "GET",
-        url: "../accounts/add-account.html",
+        url: "../account/add-account.html",
         dataType: "html",
         success: function (view) {
           $(".modal-container").html(view);
