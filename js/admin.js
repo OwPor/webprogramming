@@ -204,25 +204,74 @@ $(document).ready(function () {
       });
     }
 
-    function fetchCategories(){
-        $.ajax({
-            url: '../products/fetch-categories.php', // URL to the PHP script that returns the categories
-            type: 'GET',
-            dataType: 'json', // Expect JSON response
-            success: function(data) {
-                // Clear the existing options (if any) and add a default "Select" option
-                $('#category').empty().append('<option value="">--Select--</option>');
-                
-                // Iterate through the data (categories) and append each one to the select dropdown
-                $.each(data, function(index, category) {
-                    $('#category').append(
-                        $('<option>', {
-                            value: category.id, // The value attribute
-                            text: category.name // The displayed text
-                        })
-                    );
-                });
-            }
-        });
+    function fetchCategories() {
+      $.ajax({
+        url: "../products/fetch-categories.php", // URL to the PHP script that returns the categories
+        type: "GET",
+        dataType: "json", // Expect JSON response
+        success: function (data) {
+          // Clear the existing options (if any) and add a default "Select" option
+          $("#category").empty().append('<option value="">--Select--</option>');
+  
+          // Iterate through the data (categories) and append each one to the select dropdown
+          $.each(data, function (index, category) {
+            $("#category").append(
+              $("<option>", {
+                value: category.id, // The value attribute
+                text: category.name, // The displayed text
+              })
+            );
+          });
+        },
+      });
     }
-});
+  
+    function viewAccounts() {
+      $.ajax({
+        type: "GET",
+        url: "../account/add-accounts.php",
+        dataType: "html",
+        success: function (response) {
+          $(".content-page").html(response);
+  
+          var table = $("#table-accounts").DataTable({
+            dom: "rtp",
+            pageLength: 10,
+            ordering: false,
+          });
+  
+          $("#custom-search").on("keyup", function () {
+            table.search(this.value).draw();
+          });
+  
+          $("#category-filter").on("change", function () {
+            if (this.value !== "choose") {
+              table.column(3).search(this.value).draw();
+            }
+          });
+  
+          $("#add-account").on("click", function (e) {
+            e.preventDefault();
+            addAccount();
+          });
+        },
+      });
+    }
+  
+    function addAccount() {
+      $.ajax({
+        type: "GET",
+        url: "../account/add-account.html",
+        dataType: "html",
+        success: function (view) {
+          $(".modal-container").html(view);
+          $("#modal-add-user").modal("show");
+  
+          // $("#form-add-product").on("submit", function (e) {
+          //   e.preventDefault();
+          //   saveProduct();
+          // });
+        },
+      });
+    }
+  });
