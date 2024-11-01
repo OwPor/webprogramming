@@ -47,7 +47,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $imageErr = 'Product image is required.';
     }else if(!in_array($imageFileType, $allowedType)){
         $imageErr = 'Accepted files are jpg, jpeg, and png only.';
-    }
+    } else if ($_FILES['product_image']['size'] > 5000000)
+        $imageErr = "Only files under 5MB are allowed.";
 
     // If there are validation errors, return them as JSON
     if(!empty($codeErr) || !empty($nameErr) || !empty($categoryErr) || !empty($priceErr) || !empty($imageErr)){
