@@ -229,7 +229,7 @@ $(document).ready(function () {
     function viewAccounts() {
       $.ajax({
         type: "GET",
-        url: "../account/add-accounts.php",
+        url: "../account/add-account.php",
         dataType: "html",
         success: function (response) {
           $(".content-page").html(response);
