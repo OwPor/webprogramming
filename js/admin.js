@@ -30,7 +30,7 @@ $(document).ready(function () {
     } else if (url.endsWith("products")) {
       $("#products-link").trigger("click");
     } else if (url.endsWith("accounts")) {
-      $("accounts-link").trigger("click");
+      $("#accounts-link").trigger("click");
     } else {
       $("#dashboard-link").trigger("click");
     }
@@ -126,7 +126,7 @@ $(document).ready(function () {
       });
     }
   
-    function addProduct() {
+    function  addProduct() {
       $.ajax({
         type: "GET",
         url: "../products/add-product.html",
@@ -229,7 +229,7 @@ $(document).ready(function () {
     function viewAccounts() {
       $.ajax({
         type: "GET",
-        url: "../account/add-account.php",
+        url: "../account/view-accounts.php",
         dataType: "html",
         success: function (response) {
           $(".content-page").html(response);
